@@ -1,29 +1,38 @@
 import { useState } from "react";
 
 import { Input } from "./components/Input/Input";
+import { Button } from "./components/Button/Button";
 
 const inputLimit = 10;
 
-function symbolsLeft(length: number) {
+function symbolsLeft(length: number): string | undefined {
 	if (length <= inputLimit) {
 		return `Symbols left ${inputLimit - length}`;
 	}
-}
+};
 
 const App = () => {
 	const [inputText, setInputText] = useState('');
 	const [inputLength, setInputLength] = useState(0);
+	const [sum, setSum] = useState(0);
+	const [isDisabled, setIsDisabled] = useState(true);
 
 	const handleChange = (value: string) => {
 		setInputLength(value.length);
 		setInputText(value);
-	}
+		setIsDisabled(!/^\d+$/.test(value));
+	};
 
+	const handleClick = () => {
+		setSum(prev => prev + Number(inputText));
+	};
 
 	return <div>
+		<div>Summ is {sum}</div>
 		<Input limit={inputLimit} onChange={handleChange} />
+		<Button isDisabled={isDisabled} onClick={handleClick} />
 		<div>{symbolsLeft(inputLength)}</div>
-		<div>{isNaN(+inputText) ? "You can summarize only number" : "Summarize it"}</div>
+		<div>{isDisabled ? "You can summarize only number" : "Summarize it"}</div>
 	</div>;
 };
 
