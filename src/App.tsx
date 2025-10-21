@@ -5,22 +5,22 @@ import { Button } from "./components/Button/Button";
 
 const inputLimit = 10;
 
-function symbolsLeft(length: number): string | undefined {
+function symbolsLeft(length: number): string | null {
 	if (length <= inputLimit) {
 		return `Symbols left ${inputLimit - length}`;
 	}
+
+	return null;
 };
 
 const App = () => {
 	const [inputText, setInputText] = useState('');
 	const [inputLength, setInputLength] = useState(0);
 	const [sum, setSum] = useState(0);
-	const [isDisabled, setIsDisabled] = useState(true);
 
 	const handleChange = (value: string) => {
 		setInputLength(value.length);
 		setInputText(value);
-		setIsDisabled(!/^\d+$/.test(value));
 	};
 
 	const handleClick = () => {
@@ -30,9 +30,9 @@ const App = () => {
 	return <div>
 		<div>Summ is {sum}</div>
 		<Input limit={inputLimit} onChange={handleChange} />
-		<Button isDisabled={isDisabled} onClick={handleClick} />
+		<Button isDisabled={isNaN(+inputText)} onClick={handleClick} />
 		<div>{symbolsLeft(inputLength)}</div>
-		<div>{isDisabled ? "You can summarize only number" : "Summarize it"}</div>
+		<div>{isNaN(+inputText) ? "You can summarize only number" : "Summarize it"}</div>
 	</div>;
 };
 
