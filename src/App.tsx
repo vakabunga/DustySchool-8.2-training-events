@@ -2,6 +2,10 @@ import { useState } from "react";
 
 import { Input } from "./components/Input/Input";
 import { Button } from "./components/Button/Button";
+import { Square } from "./components/Square/Square";
+import { cnApp } from "./App.classname";
+
+import "./App.css";
 
 const inputLimit = 10;
 
@@ -18,6 +22,7 @@ const App = () => {
 	const [inputLength, setInputLength] = useState(0);
 	const [sum, setSum] = useState(0);
 
+
 	const handleChange = (value: string) => {
 		setInputLength(value.length);
 		setInputText(value);
@@ -27,12 +32,13 @@ const App = () => {
 		setSum(prev => prev + Number(inputText));
 	};
 
-	return <div>
-		<div>Summ is {sum}</div>
+	return <div className={cnApp()}>
+		<div className={cnApp('summ')}>Summ is {sum}</div>
 		<Input limit={inputLimit} onChange={handleChange} />
 		<Button isDisabled={isNaN(+inputText)} onClick={handleClick} />
-		<div>{symbolsLeft(inputLength)}</div>
-		<div>{isNaN(+inputText) ? "You can summarize only number" : "Summarize it"}</div>
+		<div className={cnApp('symbolsLeft')}>{symbolsLeft(inputLength)}</div>
+		<div className={cnApp('error')}>{isNaN(+inputText) ? "You can summarize only number" : "Summarize it"}</div>
+		<Square />
 	</div>;
 };
 
