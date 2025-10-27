@@ -3,6 +3,7 @@ import { useState } from "react";
 import { Input } from "./components/Input/Input";
 import { Button } from "./components/Button/Button";
 import { Square } from "./components/Square/Square";
+import { Emoji } from "./components/Emoji/Emoji";
 import { cnApp } from "./App.classname";
 
 import "./App.css";
@@ -39,6 +40,7 @@ const App = () => {
 		<div className={cnApp('symbolsLeft')}>{symbolsLeft(inputLength)}</div>
 		<div className={cnApp('error')}>{isNaN(+inputText) ? "You can summarize only number" : "Summarize it"}</div>
 		<Square />
+		<Emoji />
 	</div>;
 };
 
